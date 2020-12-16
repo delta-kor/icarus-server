@@ -4,7 +4,7 @@ export default abstract class Controller {
   public abstract path: string;
   public router: Router = express();
 
-  constructor() {
+  protected constructor() {
     this.mountRoutes();
   }
 
