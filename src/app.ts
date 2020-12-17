@@ -22,7 +22,7 @@ export default class App {
   }
 
   private mountErrorHandling() {
-    this.app.use((error: HttpException, req: Request, res: Response, next: NextFunction) => {
+    this.app.use((error: HttpException | Error, req: Request, res: Response, _: NextFunction) => {
       let status = 500;
       let message = 'Something went wrong';
 
