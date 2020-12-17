@@ -1,4 +1,4 @@
-import express, { Application, NextFunction, Request, Response } from 'express';
+import express, { Application, NextFunction, Request, Response, json } from 'express';
 import Controller from './types/controller.class';
 import HttpException from './exceptions/http.exception';
 
@@ -9,12 +9,17 @@ export default class App {
   constructor(port: number, controllers: Controller[]) {
     this.port = port;
     this.app = express();
+    this.mountMiddlewares();
     this.mountControllers(controllers);
     this.mountErrorHandling();
   }
 
   public listen(): void {
     this.app.listen(3000, () => console.log(`App listening on port ${this.port}`));
+  }
+
+  private mountMiddlewares() {
+    this.app.use(json());
   }
 
   private mountControllers(controllers: Controller[]) {
