@@ -1,6 +1,6 @@
 import UserModel from './user.model';
 import User from './user.interface';
-import EmailExistsException from './email-exists.exception';
+import EmailExistsException from './exception/email-exists.exception';
 
 export default class UserService {
   public async createUser(email: string, password: string): Promise<User> {

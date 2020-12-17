@@ -1,4 +1,4 @@
-import HttpException from '../../exceptions/http.exception';
+import HttpException from '../../../exceptions/http.exception';
 
 export default class EmailExistsException extends HttpException {
   constructor() {

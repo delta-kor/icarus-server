@@ -1,7 +1,9 @@
 import { Request, Response } from 'express';
-import Controller from '../../types/controller.class';
 import UserService from './user.service';
+import SignupDto from './dto/signup.dto';
+import Controller from '../../types/controller.class';
 import AsyncHelper from '../../utils/async-helper.util';
+import ValidateHelper from '../../utils/validate-helper.util';
 
 export default class UserController extends Controller {
   public path: string = '/user';
@@ -9,7 +11,7 @@ export default class UserController extends Controller {
   private userService: UserService = new UserService();
 
   protected mountRoutes() {
-    this.router.post('/signup', AsyncHelper(this.signup.bind(this)));
+    this.router.post('/signup', ValidateHelper(SignupDto), AsyncHelper(this.signup.bind(this)));
   }
 
   private async signup(req: Request, res: Response): Promise<void> {
