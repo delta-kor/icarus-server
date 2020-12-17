@@ -22,19 +22,17 @@ export default class App {
   }
 
   private mountErrorHandling() {
-    this.app.use(
-      (error: HttpException | Error, req: Request, res: Response, next: NextFunction) => {
-        let status = 500;
-        let message = 'Something went wrong';
+    this.app.use((error: HttpException, req: Request, res: Response, next: NextFunction) => {
+      let status = 500;
+      let message = 'Something went wrong';
 
-        if (error instanceof HttpException) {
-          status = error.status;
-          message = error.message;
-        }
-
-        res.status(status);
-        res.json({ status, message });
+      if (error instanceof HttpException) {
+        status = error.status;
+        message = error.message;
       }
-    );
+
+      res.status(status);
+      res.json({ status, message });
+    });
   }
 }
