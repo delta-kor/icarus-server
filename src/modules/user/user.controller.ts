@@ -1,15 +1,15 @@
-import { Request, Response, Router } from 'express';
+import { Request, Response } from 'express';
 import Controller from '../../types/controller.class';
 import UserService from './user.service';
+import AsyncHelper from '../../utils/async-helper.util';
 
 export default class UserController extends Controller {
   public path: string = '/user';
-  public router: Router = Router();
 
   private userService: UserService = new UserService();
 
   protected mountRoutes() {
-    this.router.post('/signup', this.signup.bind(this));
+    this.router.post('/signup', AsyncHelper(this.signup.bind(this)));
   }
 
   private async signup(req: Request, res: Response): Promise<void> {
