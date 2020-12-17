@@ -1,4 +1,4 @@
-import { Document, Schema, model, Model } from 'mongoose';
+import { Schema, Model, model } from 'mongoose';
 import { v4 as uuid } from 'uuid';
 import User from './user.interface';
 
@@ -18,5 +18,5 @@ UserSchema.static('emailExists', async (email: string) => {
   return !!user;
 });
 
-const UserModel = model<User & Document, UserModel & Model<User & Document>>('User', UserSchema);
+const UserModel = model<User, UserModel & Model<User>>('User', UserSchema);
 export default UserModel;
