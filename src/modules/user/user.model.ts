@@ -1,9 +1,10 @@
-import { Schema, Model, model } from 'mongoose';
+import { Model, model, Schema } from 'mongoose';
 import { v4 as uuid } from 'uuid';
 import User from './user.interface';
 
 export interface UserModel {
-  emailExists(email: string): Promise<boolean>;
+  isEmailExisting(email: string): Promise<boolean>;
+  getUser(email: string, password: string): Promise<User | null>;
 }
 
 const UserSchema = new Schema<User>({
@@ -14,10 +15,17 @@ const UserSchema = new Schema<User>({
 });
 
 UserSchema.static(
-  'emailExists',
+  'isEmailExisting',
   async (email: string): Promise<boolean> => {
-    const user = await UserModel.find({ email }).exec();
-    return !!user.length;
+    const user = await UserModel.findOne({ email }).exec();
+    return !!user;
+  }
+);
+
+UserSchema.static(
+  'getUser',
+  async (email: string, password: string): Promise<User | null> => {
+    return await UserModel.findOne({ email, password }).exec();
   }
 );
 
