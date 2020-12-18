@@ -3,7 +3,7 @@ import User from './user.interface';
 import EmailExistsException from './exception/email-exists.exception';
 
 export default class UserService {
-  public async createUser(email: string, password: string): Promise<User> {
+  public async signup(email: string, password: string): Promise<User> {
     const nickname = email.split('@')[0];
 
     if (await UserModel.emailExists(email)) {

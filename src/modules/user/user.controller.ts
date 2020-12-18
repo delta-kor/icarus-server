@@ -1,9 +1,11 @@
-import { Request, Response } from 'express';
 import UserService from './user.service';
+import UserResponse from './user.response';
 import SignupDto from './dto/signup.dto';
 import Controller from '../../types/controller.class';
 import AsyncHelper from '../../utils/async-helper.util';
 import ValidateHelper from '../../utils/validate-helper.util';
+import { DtoHelper } from '../../utils/dto-helper.util';
+import { TypedRequest, TypedResponse } from '../../utils/express.type';
 
 export default class UserController extends Controller {
   public path: string = '/user';
@@ -14,8 +16,11 @@ export default class UserController extends Controller {
     this.router.post('/signup', ValidateHelper(SignupDto), AsyncHelper(this.signup.bind(this)));
   }
 
-  private async signup(req: Request, res: Response): Promise<void> {
-    const user = await this.userService.createUser(req.body.email, req.body.password);
-    res.json({ uuid: user.uuid });
+  private async signup(
+    req: TypedRequest<DtoHelper<SignupDto>>,
+    res: TypedResponse<UserResponse.Signup>
+  ): Promise<void> {
+    const user = await this.userService.signup(req.body.email, req.body.password);
+    res.json({ uuid: user.uuid, nickname: user.nickname });
   }
 }
