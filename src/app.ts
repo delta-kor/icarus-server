@@ -70,16 +70,18 @@ export default class App {
     this.app.use((error: HttpException | Error, req: Request, res: Response, _: NextFunction) => {
       let status = 500;
       let message = 'Something went wrong';
+      let code = 0;
 
       if (error instanceof HttpException) {
         status = error.status;
         message = error.message;
+        code = error.code;
       } else {
         console.error(error);
       }
 
       res.status(status);
-      res.json({ status, message });
+      res.json({ status, message, code });
     });
   }
 }

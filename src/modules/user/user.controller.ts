@@ -7,6 +7,7 @@ import AsyncHelper from '../../utils/async-helper.util';
 import ValidateHelper from '../../utils/validate-helper.util';
 import { DtoHelper } from '../../utils/dto-helper.util';
 import { TypedRequest, TypedResponse } from '../../utils/express.type';
+import AlreadyLoginedException from './exception/already-logined.exception';
 
 export default class UserController extends Controller {
   public path: string = '/user';
@@ -22,6 +23,7 @@ export default class UserController extends Controller {
     req: TypedRequest<DtoHelper<SignupDto>>,
     res: TypedResponse<UserResponse.Signup>
   ): Promise<void> {
+    if (req.isAuthenticated()) throw new AlreadyLoginedException();
     const user = await this.userService.signup(req.body.email, req.body.password);
     res.json({ uuid: user.uuid, nickname: user.nickname });
   }
@@ -30,6 +32,7 @@ export default class UserController extends Controller {
     req: TypedRequest<DtoHelper<LoginDto>>,
     res: TypedResponse<UserResponse.Login>
   ): Promise<void> {
+    if (req.isAuthenticated()) throw new AlreadyLoginedException();
     const user = await this.userService.login(req.body.email, req.body.password);
     req.login(user, err => {
       if (err) throw err;
