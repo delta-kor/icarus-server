@@ -17,7 +17,7 @@ export default class UserController extends Controller {
   protected mountRoutes() {
     this.router.post('/signup', ValidateHelper(SignupDto), AsyncHelper(this.signup.bind(this)));
     this.router.post('/login', ValidateHelper(LoginDto), AsyncHelper(this.login.bind(this)));
-    this.router.post('/logout', this.logout.bind(this));
+    this.router.post('/logout', this.logout);
   }
 
   private async signup(
