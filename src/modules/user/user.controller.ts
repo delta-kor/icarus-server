@@ -17,6 +17,7 @@ export default class UserController extends Controller {
   protected mountRoutes() {
     this.router.post('/signup', ValidateHelper(SignupDto), AsyncHelper(this.signup.bind(this)));
     this.router.post('/login', ValidateHelper(LoginDto), AsyncHelper(this.login.bind(this)));
+    this.router.post('/logout', this.logout.bind(this));
   }
 
   private async signup(
@@ -40,5 +41,11 @@ export default class UserController extends Controller {
     });
 
     res.json({ uuid: user.uuid, nickname: user.nickname, email: user.email });
+  }
+
+  private logout(req: TypedRequest<any>, res: TypedResponse<UserResponse.Logout>): void {
+    const logined = req.isAuthenticated();
+    req.logout();
+    res.json({ logined });
   }
 }

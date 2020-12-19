@@ -9,6 +9,10 @@ namespace UserResponse {
     nickname: string;
     email: string;
   }
+
+  export interface Logout {
+    logined: boolean;
+  }
 }
 
 export default UserResponse;
