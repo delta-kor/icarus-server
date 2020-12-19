@@ -5,6 +5,7 @@ import User from './user.interface';
 export interface UserModel {
   isEmailExisting(email: string): Promise<boolean>;
   getUser(email: string, password: string): Promise<User | null>;
+  getUserByUUID(uuid: string): Promise<User | null>;
 }
 
 const UserSchema = new Schema<User>({
@@ -26,6 +27,13 @@ UserSchema.static(
   'getUser',
   async (email: string, password: string): Promise<User | null> => {
     return await UserModel.findOne({ email, password }).exec();
+  }
+);
+
+UserSchema.static(
+  'getUserByUUID',
+  async (uuid: string): Promise<User | null> => {
+    return await UserModel.findOne({ uuid }).exec();
   }
 );
 

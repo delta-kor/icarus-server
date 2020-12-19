@@ -31,6 +31,10 @@ export default class UserController extends Controller {
     res: TypedResponse<UserResponse.Login>
   ): Promise<void> {
     const user = await this.userService.login(req.body.email, req.body.password);
+    req.login(user, err => {
+      if (err) throw err;
+    });
+
     res.json({ uuid: user.uuid, nickname: user.nickname, email: user.email });
   }
 }
