@@ -2,12 +2,12 @@ import UserService from './user.service';
 import UserResponse from './user.response';
 import SignupDto from './dto/signup.dto';
 import LoginDto from './dto/login.dto';
+import AlreadyLoginedException from './exception/already-logined.exception';
 import Controller from '../../types/controller.class';
 import AsyncHelper from '../../utils/async-helper.util';
 import ValidateHelper from '../../utils/validate-helper.util';
-import { DtoHelper } from '../../utils/dto-helper.util';
+import DtoHelper from '../../utils/dto-helper.util';
 import { TypedRequest, TypedResponse } from '../../utils/express.type';
-import AlreadyLoginedException from './exception/already-logined.exception';
 
 export default class UserController extends Controller {
   public path: string = '/user';
@@ -25,6 +25,7 @@ export default class UserController extends Controller {
   ): Promise<void> {
     if (req.isAuthenticated()) throw new AlreadyLoginedException();
     const user = await this.userService.signup(req.body.email, req.body.password);
+
     res.json({ uuid: user.uuid, nickname: user.nickname });
   }
 
