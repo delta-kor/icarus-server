@@ -1,6 +1,6 @@
 import { Model, model, Schema } from 'mongoose';
-import { v4 as uuid } from 'uuid';
 import User from './user.interface';
+import uuid from '../../utils/uuid.util';
 
 export interface UserModel {
   isEmailExisting(email: string): Promise<boolean>;
@@ -9,7 +9,7 @@ export interface UserModel {
 }
 
 const UserSchema = new Schema<User>({
-  uuid: { type: String, required: true, unique: true, default: () => uuid() },
+  uuid: { type: String, required: true, unique: true, default: () => uuid(8) },
   nickname: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
