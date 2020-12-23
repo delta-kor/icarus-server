@@ -8,7 +8,7 @@ export interface UserModel {
   getUserByUUID(uuid: string): Promise<User | null>;
 }
 
-const UserSchema = new Schema<User>({
+export const UserSchema = new Schema<User>({
   uuid: { type: String, required: true, unique: true, default: () => uuid(8) },
   nickname: { type: String, required: true },
   email: { type: String, required: true, unique: true },
