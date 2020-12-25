@@ -8,6 +8,7 @@ const GroupSchema = new Schema<Group>({
   name: { type: String, required: true },
   admin: { type: UserSchema, required: true },
   manager: { type: [UserSchema], required: true, default: [] },
+  member: { type: [UserSchema], required: true, default: [] },
 });
 
 const GroupModel = model<Group>('group', GroupSchema);
