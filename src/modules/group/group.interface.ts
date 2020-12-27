@@ -6,4 +6,5 @@ export default interface Group extends Document {
   name: string;
   admin: User;
   manager: User[];
+  member: User[];
 }
