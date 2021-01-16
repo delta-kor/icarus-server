@@ -1,7 +1,7 @@
-import UserModel from './user.model';
-import User from './user.interface';
 import EmailExistsException from './exception/email-exists.exception';
 import WrongEmailOrPasswordException from './exception/wrong-email-or-password.exception';
+import User from './user.interface';
+import UserModel from './user.model';
 
 export default class UserService {
   public async signup(email: string, password: string): Promise<User> {

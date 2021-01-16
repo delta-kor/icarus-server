@@ -1,13 +1,13 @@
-import GroupService from './group.service';
-import GroupResponse from './group.response';
-import CreateDto from './dto/create.dto';
-import User from '../user/user.interface';
 import Controller from '../../types/controller.class';
-import { TypedRequest, TypedResponse } from '../../utils/express.type';
 import AsyncHelper from '../../utils/async-helper.util';
-import ValidateHelper from '../../utils/validate-helper.util';
 import DtoHelper from '../../utils/dto-helper.util';
+import { TypedRequest, TypedResponse } from '../../utils/express.type';
+import ValidateHelper from '../../utils/validate-helper.util';
+import User from '../user/user.interface';
+import CreateDto from './dto/create.dto';
 import NotLoginedException from './exception/not-logined.exception';
+import GroupResponse from './group.response';
+import GroupService from './group.service';
 
 export default class GroupController extends Controller {
   public path: string = '/group';

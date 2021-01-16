@@ -1,12 +1,12 @@
-import express, { Application, NextFunction, Request, Response, json } from 'express';
 import mongo, { MongoStoreFactory } from 'connect-mongo';
-import mongoose from 'mongoose';
+import express, { Application, json, NextFunction, Request, Response } from 'express';
 import session from 'express-session';
+import mongoose from 'mongoose';
 import passport from 'passport';
-import Controller from './types/controller.class';
+import HttpException from './exceptions/http.exception';
 import User from './modules/user/user.interface';
 import UserModel from './modules/user/user.model';
-import HttpException from './exceptions/http.exception';
+import Controller from './types/controller.class';
 
 export default class App {
   private readonly MongoStore: MongoStoreFactory;

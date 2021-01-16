@@ -1,8 +1,8 @@
-import { Model, Schema, model } from 'mongoose';
-import Group from './group.interface';
+import { Model, model, Schema } from 'mongoose';
+import uuid from '../../utils/uuid.util';
 import User from '../user/user.interface';
 import UserModel from '../user/user.model';
-import uuid from '../../utils/uuid.util';
+import Group from './group.interface';
 
 export interface GroupModel extends Model<Group> {
   getAdmin(): Promise<User>;

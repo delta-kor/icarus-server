@@ -1,6 +1,6 @@
-import { Model, Schema, model } from 'mongoose';
-import User from './user.interface';
+import { Model, model, Schema } from 'mongoose';
 import uuid from '../../utils/uuid.util';
+import User from './user.interface';
 
 export interface UserModel {
   isEmailExisting(email: string): Promise<boolean>;
