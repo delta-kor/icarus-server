@@ -1,15 +1,25 @@
-import { model, Schema } from 'mongoose';
+import { Model, Schema, model } from 'mongoose';
 import Group from './group.interface';
+import User from '../user/user.interface';
+import UserModel from '../user/user.model';
 import uuid from '../../utils/uuid.util';
-import { UserSchema } from '../user/user.model';
+
+export interface GroupModel extends Model<Group> {
+  getAdmin(): Promise<User>;
+}
 
 const GroupSchema = new Schema<Group>({
-  uuid: { type: String, required: true, unique: true, default: () => uuid(8) },
+  uuid: { type: String, required: true, unique: true, default: () => uuid(32) },
   name: { type: String, required: true },
-  admin: { type: UserSchema, required: true },
-  manager: { type: [UserSchema], required: true, default: [] },
-  member: { type: [UserSchema], required: true, default: [] },
+  admin: { type: String, required: true },
+  manager: { type: [String], required: true, default: [] },
+  member: { type: [String], required: true, default: [] },
 });
 
-const GroupModel = model<Group>('group', GroupSchema);
+GroupSchema.method('getAdmin', async function (this: Group): Promise<User> {
+  const user = await UserModel.getUserByUUID(this.admin);
+  return user!;
+});
+
+const GroupModel = model<Group, GroupModel>('group', GroupSchema);
 export default GroupModel;

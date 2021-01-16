@@ -1,4 +1,4 @@
-import { Model, model, Schema } from 'mongoose';
+import { Model, Schema, model } from 'mongoose';
 import User from './user.interface';
 import uuid from '../../utils/uuid.util';
 
@@ -9,7 +9,7 @@ export interface UserModel {
 }
 
 export const UserSchema = new Schema<User>({
-  uuid: { type: String, required: true, unique: true, default: () => uuid(16) },
+  uuid: { type: String, required: true, unique: true, default: () => uuid(32) },
   nickname: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
