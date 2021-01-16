@@ -2,7 +2,7 @@ import { Model, model, Schema } from 'mongoose';
 import uuid from '../../utils/uuid.util';
 import User from './user.interface';
 
-export interface UserModel {
+export interface UserModel extends Model<User> {
   isEmailExisting(email: string): Promise<boolean>;
   getUser(email: string, password: string): Promise<User | null>;
   getUserByUUID(uuid: string): Promise<User | null>;
@@ -17,25 +17,25 @@ export const UserSchema = new Schema<User>({
 
 UserSchema.static(
   'isEmailExisting',
-  async (email: string): Promise<boolean> => {
-    const user = await UserModel.findOne({ email }).exec();
+  async function (this: UserModel, email: string): Promise<boolean> {
+    const user = await this.findOne({ email }).exec();
     return !!user;
   }
 );
 
 UserSchema.static(
   'getUser',
-  async (email: string, password: string): Promise<User | null> => {
-    return await UserModel.findOne({ email, password }).exec();
+  async function (this: UserModel, email: string, password: string): Promise<User | null> {
+    return await this.findOne({ email, password }).exec();
   }
 );
 
 UserSchema.static(
   'getUserByUUID',
-  async (uuid: string): Promise<User | null> => {
-    return await UserModel.findOne({ uuid }).exec();
+  async function (this: UserModel, uuid: string): Promise<User | null> {
+    return await this.findOne({ uuid }).exec();
   }
 );
 
-const UserModel = model<User, UserModel & Model<User>>('User', UserSchema);
+const UserModel = model<User, UserModel>('User', UserSchema);
 export default UserModel;

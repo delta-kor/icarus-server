@@ -6,6 +6,7 @@ import Group from './group.interface';
 
 export interface GroupModel extends Model<Group> {
   getUserGroupCount(user: User): Promise<number>;
+  getGroupByUUID(uuid: string): Promise<Group | null>;
 }
 
 const GroupSchema = new Schema<Group>({
@@ -16,6 +17,14 @@ const GroupSchema = new Schema<Group>({
   member: { type: [String], required: true, default: [] },
 });
 
+GroupSchema.pre('save', async function (this: Group, next): Promise<void> {
+  const users = this.manager.concat(this.admin);
+  for (const user of users) {
+    if (!this.member.includes(user)) this.member.push(user);
+  }
+  next();
+});
+
 GroupSchema.method('getAdmin', async function (this: Group): Promise<User> {
   const user = await UserModel.getUserByUUID(this.admin);
   return user!;
@@ -24,8 +33,15 @@ GroupSchema.method('getAdmin', async function (this: Group): Promise<User> {
 GroupSchema.static(
   'getUserGroupCount',
   async function (this: GroupModel, user: User): Promise<number> {
-    const userGroups = await this.find({ admin: user.uuid });
+    const userGroups = await this.find({ admin: user.uuid }).exec();
     return userGroups.length;
+  }
+);
+
+GroupSchema.static(
+  'getGroupByUUID',
+  async function (this: GroupModel, uuid: string): Promise<Group | null> {
+    return this.findOne({ uuid }).exec();
   }
 );
 
