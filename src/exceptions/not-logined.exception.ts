@@ -1,4 +1,4 @@
-import HttpException, { ErrorCode } from '../../../exceptions/http.exception';
+import HttpException, { ErrorCode } from './http.exception';
 
 export default class NotLoginedException extends HttpException {
   constructor() {
