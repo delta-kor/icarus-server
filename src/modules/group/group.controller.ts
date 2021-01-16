@@ -18,7 +18,7 @@ export default class GroupController extends Controller {
 
   protected mountRoutes() {
     this.router.get(
-      '/',
+      '/info',
       Authenticate,
       ValidateHelper(InfoDto, true),
       AsyncHelper(this.info.bind(this))
