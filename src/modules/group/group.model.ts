@@ -9,7 +9,7 @@ export interface GroupModel extends Model<Group> {
 }
 
 const GroupSchema = new Schema<Group>({
-  uuid: { type: String, required: true, unique: true, default: () => uuid(32) },
+  uuid: { type: String, required: true, unique: true, default: () => uuid(16) },
   name: { type: String, required: true },
   admin: { type: String, required: true },
   manager: { type: [String], required: true, default: [] },
