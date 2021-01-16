@@ -5,7 +5,7 @@ import UserModel from '../user/user.model';
 import Group from './group.interface';
 
 export interface GroupModel extends Model<Group> {
-  getAdmin(): Promise<User>;
+  getUserGroupCount(user: User): Promise<number>;
 }
 
 const GroupSchema = new Schema<Group>({
@@ -20,6 +20,14 @@ GroupSchema.method('getAdmin', async function (this: Group): Promise<User> {
   const user = await UserModel.getUserByUUID(this.admin);
   return user!;
 });
+
+GroupSchema.static(
+  'getUserGroupCount',
+  async function (this: GroupModel, user: User): Promise<number> {
+    const userGroups = await this.find({ admin: user.uuid });
+    return userGroups.length;
+  }
+);
 
 const GroupModel = model<Group, GroupModel>('group', GroupSchema);
 export default GroupModel;
