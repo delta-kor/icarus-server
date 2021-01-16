@@ -1,5 +1,6 @@
 export enum ErrorCode {
   ALREADY_LOGINED,
+  NOT_LOGINED,
 }
 
 export default class HttpException extends Error {
