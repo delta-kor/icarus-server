@@ -1,4 +1,5 @@
 export enum ErrorCode {
+  NOT_FOUND,
   ALREADY_LOGINED,
   NOT_LOGINED,
   GROUP_NOT_FOUND,

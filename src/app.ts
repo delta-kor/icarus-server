@@ -4,6 +4,7 @@ import session from 'express-session';
 import mongoose from 'mongoose';
 import passport from 'passport';
 import HttpException from './exceptions/http.exception';
+import NotFoundException from './exceptions/not-found.exception';
 import User from './modules/user/user.interface';
 import UserModel from './modules/user/user.model';
 import Controller from './types/controller.class';
@@ -67,6 +68,9 @@ export default class App {
   }
 
   private mountErrorHandling(): void {
+    this.app.use(() => {
+      throw new NotFoundException();
+    });
     this.app.use((error: HttpException | Error, req: Request, res: Response, _: NextFunction) => {
       let status = 500;
       let message = 'Something went wrong';
