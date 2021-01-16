@@ -6,6 +6,7 @@ import { TypedRequest, TypedResponse } from '../../utils/express.type';
 import ValidateHelper from '../../utils/validate-helper.util';
 import User from '../user/user.interface';
 import CreateDto from './dto/create.dto';
+import InfoDto from './dto/info.dto';
 import JoinDto from './dto/join.dto';
 import GroupResponse from './group.response';
 import GroupService from './group.service';
@@ -16,6 +17,12 @@ export default class GroupController extends Controller {
   private groupService: GroupService = new GroupService();
 
   protected mountRoutes() {
+    this.router.get(
+      '/',
+      Authenticate,
+      ValidateHelper(InfoDto, true),
+      AsyncHelper(this.info.bind(this))
+    );
     this.router.post(
       '/create',
       Authenticate,
@@ -28,6 +35,15 @@ export default class GroupController extends Controller {
       ValidateHelper(JoinDto),
       AsyncHelper(this.join.bind(this))
     );
+  }
+
+  private async info(
+    req: TypedRequest<any, DtoHelper<InfoDto>>,
+    res: TypedResponse<GroupResponse.Info>
+  ): Promise<void> {
+    const info = await this.groupService.info(req.query.uuid);
+
+    res.json(info);
   }
 
   private async create(

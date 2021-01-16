@@ -1,4 +1,5 @@
 import { Model, model, Schema } from 'mongoose';
+import { Deserialize } from '../../types/deserialize.type';
 import uuid from '../../utils/uuid.util';
 import User from './user.interface';
 
@@ -13,6 +14,13 @@ export const UserSchema = new Schema<User>({
   nickname: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+});
+
+UserSchema.method('deserialize', function (this: User): Deserialize<User> {
+  return {
+    uuid: this.uuid,
+    nickname: this.nickname,
+  };
 });
 
 UserSchema.static(

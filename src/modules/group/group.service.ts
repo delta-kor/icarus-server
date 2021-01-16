@@ -4,8 +4,21 @@ import GroupNotFoundException from './exception/group-not-found.exception';
 import TooManyGroupsException from './exception/too-many-groups.exception';
 import Group from './group.interface';
 import GroupModel from './group.model';
+import GroupResponse from './group.response';
 
 export default class GroupService {
+  public async info(uuid: string): Promise<GroupResponse.Info> {
+    const group = await GroupModel.getGroupByUUID(uuid);
+    if (!group) throw new GroupNotFoundException();
+
+    const admin = await group.getAdmin();
+
+    return {
+      name: group.name,
+      admin: admin.deserialize(),
+    };
+  }
+
   public async create(name: string, admin: User): Promise<Group> {
     const groups = await GroupModel.getUserGroupCount(admin);
     if (groups > 2) throw new TooManyGroupsException();
