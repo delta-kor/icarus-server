@@ -30,6 +30,24 @@ GroupSchema.method('getAdmin', async function (this: Group): Promise<User> {
   return user!;
 });
 
+GroupSchema.method('getManagers', async function (this: Group): Promise<User[]> {
+  const managers: User[] = [];
+  for (const manager of this.manager) {
+    const user = await UserModel.getUserByUUID(manager);
+    managers.push(user!);
+  }
+  return managers;
+});
+
+GroupSchema.method('getMembers', async function (this: Group): Promise<User[]> {
+  const members: User[] = [];
+  for (const member of this.member) {
+    const user = await UserModel.getUserByUUID(member);
+    members.push(user!);
+  }
+  return members;
+});
+
 GroupSchema.static(
   'getUserGroupCount',
   async function (this: GroupModel, user: User): Promise<number> {

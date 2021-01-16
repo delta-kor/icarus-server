@@ -12,10 +12,14 @@ export default class GroupService {
     if (!group) throw new GroupNotFoundException();
 
     const admin = await group.getAdmin();
+    const managers = await group.getManagers();
+    const members = await group.getMembers();
 
     return {
       name: group.name,
       admin: admin.deserialize(),
+      manager: managers.map(user => user.deserialize()),
+      member: members.map(user => user.deserialize()),
     };
   }
 

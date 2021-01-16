@@ -8,4 +8,6 @@ export default interface Group extends Document {
   manager: string[];
   member: string[];
   getAdmin(): Promise<User>;
+  getManagers(): Promise<User[]>;
+  getMembers(): Promise<User[]>;
 }

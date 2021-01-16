@@ -5,6 +5,8 @@ namespace GroupResponse {
   export interface Info {
     name: string;
     admin: Deserialize<User>;
+    manager: Deserialize<User>[];
+    member: Deserialize<User>[];
   }
 
   export interface Create {
