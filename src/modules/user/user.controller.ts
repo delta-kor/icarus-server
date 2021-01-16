@@ -25,9 +25,14 @@ export default class UserController extends Controller {
     res: TypedResponse<UserResponse.Signup>
   ): Promise<void> {
     if (req.isAuthenticated()) throw new AlreadyLoginedException();
-    const user = await this.userService.signup(req.body.email, req.body.password);
 
-    res.json({ uuid: user.uuid, nickname: user.nickname });
+    const user = await this.userService.signup(
+      req.body.nickname,
+      req.body.email,
+      req.body.password
+    );
+
+    res.json({ uuid: user.uuid });
   }
 
   private async login(
@@ -35,6 +40,7 @@ export default class UserController extends Controller {
     res: TypedResponse<UserResponse.Login>
   ): Promise<void> {
     if (req.isAuthenticated()) throw new AlreadyLoginedException();
+
     const user = await this.userService.login(req.body.email, req.body.password);
     req.login(user, err => {
       if (err) throw err;
@@ -45,6 +51,7 @@ export default class UserController extends Controller {
 
   private logout(req: TypedRequest<any>, res: TypedResponse<UserResponse.Logout>): void {
     const logined = req.isAuthenticated();
+
     req.logout();
     res.json({ logined });
   }

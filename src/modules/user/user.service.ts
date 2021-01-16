@@ -4,9 +4,7 @@ import User from './user.interface';
 import UserModel from './user.model';
 
 export default class UserService {
-  public async signup(email: string, password: string): Promise<User> {
-    const nickname = email.split('@')[0];
-
+  public async signup(nickname: string, email: string, password: string): Promise<User> {
     if (await UserModel.isEmailExisting(email)) {
       throw new EmailExistsException();
     }
