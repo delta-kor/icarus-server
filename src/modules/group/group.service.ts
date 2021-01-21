@@ -1,6 +1,8 @@
 import User from '../user/user.interface';
+import AdminLeaveException from './exception/admin-leave.exception';
 import GroupAlreadyJoinedException from './exception/group-already-joined.exception';
 import GroupNotFoundException from './exception/group-not-found.exception';
+import NotMemberException from './exception/not-member.exception';
 import TooManyGroupsException from './exception/too-many-groups.exception';
 import Group from './group.interface';
 import GroupModel from './group.model';
@@ -40,6 +42,23 @@ export default class GroupService {
     }
 
     group.member.push(user.uuid);
+    await group.save();
+  }
+
+  public async leave(uuid: string, user: User): Promise<void> {
+    const group = await GroupModel.getGroupByUUID(uuid);
+    if (!group) throw new GroupNotFoundException();
+
+    if (!group.member.includes(user.uuid)) {
+      throw new NotMemberException();
+    }
+
+    if (group.admin === user.uuid) {
+      throw new AdminLeaveException();
+    }
+
+    group.manager.splice(group.manager.indexOf(user.uuid), 1);
+    group.member.splice(group.member.indexOf(user.uuid), 1);
     await group.save();
   }
 }

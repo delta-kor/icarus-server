@@ -8,6 +8,7 @@ import User from '../user/user.interface';
 import CreateDto from './dto/create.dto';
 import InfoDto from './dto/info.dto';
 import JoinDto from './dto/join.dto';
+import LeaveDto from './dto/leave.dto';
 import GroupResponse from './group.response';
 import GroupService from './group.service';
 
@@ -34,6 +35,12 @@ export default class GroupController extends Controller {
       Authenticate,
       ValidateHelper(JoinDto),
       AsyncHelper(this.join.bind(this))
+    );
+    this.router.post(
+      '/leave',
+      Authenticate,
+      ValidateHelper(LeaveDto),
+      AsyncHelper(this.leave.bind(this))
     );
   }
 
@@ -63,6 +70,16 @@ export default class GroupController extends Controller {
     const user = req.user as User;
 
     await this.groupService.join(req.body.uuid, user);
+    res.json({});
+  }
+
+  private async leave(
+    req: TypedRequest<DtoHelper<LeaveDto>>,
+    res: TypedResponse<GroupResponse.Leave>
+  ): Promise<void> {
+    const user = req.user as User;
+
+    await this.groupService.leave(req.body.uuid, user);
     res.json({});
   }
 }

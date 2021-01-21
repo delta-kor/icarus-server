@@ -14,6 +14,8 @@ namespace GroupResponse {
   }
 
   export interface Join {}
+
+  export interface Leave {}
 }
 
 export default GroupResponse;
