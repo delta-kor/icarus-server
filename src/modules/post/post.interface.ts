@@ -5,6 +5,11 @@ export enum PostType {
   TIMELINE = 'timeline',
 }
 
+export enum PostAttachmentType {
+  IMAGE = 'image',
+  MENTION = 'mention',
+}
+
 export enum MentionType {
   USER = 'user',
   GROUP = 'group',
@@ -15,7 +20,9 @@ export interface PostContent {
   attachments: PostAttachment[];
 }
 
-export interface PostAttachment {}
+export interface PostAttachment {
+  type: PostAttachmentType;
+}
 
 export interface ImageAttachment extends PostAttachment {
   key: string;
@@ -24,7 +31,8 @@ export interface ImageAttachment extends PostAttachment {
 export interface MentionAttachment extends PostAttachment {
   from: number;
   length: number;
-  type: MentionType;
+  to: MentionType;
+  target: string;
 }
 
 export default interface Post extends Document {
