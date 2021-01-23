@@ -1,7 +1,7 @@
 import { Document } from 'mongoose';
 
 export enum PostType {
-  GROUP,
+  GROUP = 'group',
 }
 
 export default interface Post extends Document {
