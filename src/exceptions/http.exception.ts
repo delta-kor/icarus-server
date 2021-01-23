@@ -5,6 +5,8 @@ export enum ErrorCode {
   GROUP_NOT_FOUND,
   GROUP_NOT_MEMBER,
   GROUP_ADMIN_LEAVE,
+  UNSUPPORTED_POST_TYPE,
+  INVALID_POST_CONTENT,
 }
 
 export default class HttpException extends Error {
