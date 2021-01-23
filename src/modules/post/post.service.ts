@@ -3,17 +3,44 @@ import GroupModel from '../group/group.model';
 import User from '../user/user.interface';
 import InvalidPostContentException from './exception/invalid-post-content.exception';
 import UnsupportedPostTypeException from './exception/unsupported-post-type.exception';
-import Post, { PostContent, PostType } from './post.interface';
+import Post, {
+  ImageAttachment,
+  MentionAttachment,
+  PostAttachmentType,
+  PostContent,
+  PostType,
+} from './post.interface';
 import PostModel from './post.model';
 
 export default class PostService {
+  private validatePostContent(content: Partial<PostContent>): void {
+    if (typeof content.text !== 'string') throw new InvalidPostContentException();
+
+    content.attachments?.forEach(attachment => {
+      if (attachment.type === PostAttachmentType.IMAGE) {
+        const imageAttachment = attachment as Partial<ImageAttachment>;
+
+        if (typeof imageAttachment.key !== 'string') throw new InvalidPostContentException();
+      } else if (attachment.type === PostAttachmentType.MENTION) {
+        const mentionAttachment = attachment as Partial<MentionAttachment>;
+
+        if (typeof mentionAttachment.from !== 'number') throw new InvalidPostContentException();
+        if (typeof mentionAttachment.length !== 'number') throw new InvalidPostContentException();
+        if (typeof mentionAttachment.to !== 'string') throw new InvalidPostContentException();
+        if (typeof mentionAttachment.target !== 'string') throw new InvalidPostContentException();
+      } else {
+        throw new InvalidPostContentException();
+      }
+    });
+  }
+
   public async write(
     author: User,
     type: PostType,
     target: string,
     content: PostContent
   ): Promise<Post> {
-    if (!content.text) throw new InvalidPostContentException();
+    this.validatePostContent(content);
 
     if (type === PostType.GROUP) {
       const group = await GroupModel.getGroupByUUID(target);

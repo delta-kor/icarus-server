@@ -17,7 +17,7 @@ export enum MentionType {
 
 export interface PostContent {
   text: string;
-  attachments: PostAttachment[];
+  attachments?: PostAttachment[];
 }
 
 export interface PostAttachment {
@@ -25,10 +25,12 @@ export interface PostAttachment {
 }
 
 export interface ImageAttachment extends PostAttachment {
+  type: PostAttachmentType.IMAGE;
   key: string;
 }
 
 export interface MentionAttachment extends PostAttachment {
+  type: PostAttachmentType.MENTION;
   from: number;
   length: number;
   to: MentionType;
