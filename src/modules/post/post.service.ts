@@ -34,6 +34,8 @@ export default class PostService {
         throw new InvalidPostContentException();
       }
     });
+
+    if (!content.attachments) content.attachments = [];
   }
 
   public async write(
