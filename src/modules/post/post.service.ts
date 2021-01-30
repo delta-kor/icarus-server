@@ -1,6 +1,8 @@
 import GroupNotFoundException from '../group/exception/group-not-found.exception';
 import GroupModel from '../group/group.model';
+import UserNotFoundException from '../user/exception/user-not-found.exception';
 import User from '../user/user.interface';
+import UserModel from '../user/user.model';
 import InvalidPostContentException from './exception/invalid-post-content.exception';
 import UnsupportedPostTypeException from './exception/unsupported-post-type.exception';
 import Post, {
@@ -45,6 +47,12 @@ export default class PostService {
     if (type === PostType.GROUP) {
       const group = await GroupModel.getGroupByUUID(target);
       if (!group) throw new GroupNotFoundException();
+
+      const post = new PostModel({ author: author.uuid, type, target, content });
+      return await post.save();
+    } else if (type === PostType.TIMELINE) {
+      const user = await UserModel.getUserByUUID(target);
+      if (!user) throw new UserNotFoundException();
 
       const post = new PostModel({ author: author.uuid, type, target, content });
       return await post.save();
