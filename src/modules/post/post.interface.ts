@@ -1,4 +1,5 @@
 import { Document } from 'mongoose';
+import User from '../user/user.interface';
 
 export enum PostType {
   GROUP = 'group',
@@ -43,4 +44,5 @@ export default interface Post extends Document {
   type: PostType;
   target: string;
   content: PostContent;
+  isDeletable(user: User): Promise<boolean>;
 }
