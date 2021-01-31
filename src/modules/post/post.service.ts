@@ -72,6 +72,6 @@ export default class PostService {
     const isDeletable = await post.isDeletable(user);
     if (!isDeletable) throw new NoPermissionToDeletePostException();
 
-    await post.delete().exec();
+    await post.delete();
   }
 }
