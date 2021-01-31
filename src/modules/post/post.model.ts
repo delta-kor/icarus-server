@@ -4,7 +4,9 @@ import GroupModel from '../group/group.model';
 import User from '../user/user.interface';
 import Post, { PostType } from './post.interface';
 
-export interface PostModel extends Model<Post> {}
+export interface PostModel extends Model<Post> {
+  getPostByUUID(uuid: string): Promise<Post | null>;
+}
 
 const PostSchema = new Schema<Post>({
   uuid: { type: String, required: true, unique: true, default: () => uuid(16) },
@@ -26,6 +28,13 @@ PostSchema.method('isDeletable', async function (this: Post, user: User): Promis
 
   return false;
 });
+
+PostSchema.static(
+  'getPostByUUID',
+  async function (this: PostModel, uuid: string): Promise<Post | null> {
+    return this.findOne({ uuid }).exec();
+  }
+);
 
 const PostModel = model<Post, PostModel>('post', PostSchema);
 export default PostModel;

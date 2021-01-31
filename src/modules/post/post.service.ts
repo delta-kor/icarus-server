@@ -4,6 +4,8 @@ import UserNotFoundException from '../user/exception/user-not-found.exception';
 import User from '../user/user.interface';
 import UserModel from '../user/user.model';
 import InvalidPostContentException from './exception/invalid-post-content.exception';
+import NoPermissionToDeletePostException from './exception/no-permission-to-delete-post.exception';
+import PostNotFoundException from './exception/post-not-found.exception';
 import UnsupportedPostTypeException from './exception/unsupported-post-type.exception';
 import Post, {
   ImageAttachment,
@@ -61,5 +63,15 @@ export default class PostService {
     } else {
       throw new UnsupportedPostTypeException();
     }
+  }
+
+  public async delete(uuid: string, user: User): Promise<void> {
+    const post = await PostModel.getPostByUUID(uuid);
+    if (!post) throw new PostNotFoundException();
+
+    const isDeletable = await post.isDeletable(user);
+    if (!isDeletable) throw new NoPermissionToDeletePostException();
+
+    await post.delete().exec();
   }
 }

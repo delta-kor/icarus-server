@@ -8,6 +8,8 @@ export enum ErrorCode {
   GROUP_ADMIN_LEAVE,
   UNSUPPORTED_POST_TYPE,
   INVALID_POST_CONTENT,
+  POST_NOT_FOUND,
+  NO_PERMISSION_TO_DELETE_POST,
 }
 
 export default class HttpException extends Error {
