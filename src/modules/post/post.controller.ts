@@ -4,7 +4,6 @@ import Authenticate from '../../utils/authenticate.util';
 import DtoHelper from '../../utils/dto-helper.util';
 import { TypedRequest, TypedResponse } from '../../utils/express.type';
 import ValidateHelper from '../../utils/validate-helper.util';
-import User from '../user/user.interface';
 import DeleteDto from './dto/delete.dto';
 import EditDto from './dto/edit.dto';
 import WriteDto from './dto/write.dto';
@@ -41,10 +40,8 @@ export default class PostController extends Controller {
     req: TypedRequest<DtoHelper<WriteDto>>,
     res: TypedResponse<PostResponse.Write>
   ): Promise<void> {
-    const user = req.user as User;
-
     const post = await this.postService.write(
-      user,
+      req.user!,
       req.body.type,
       req.body.target,
       req.body.content
@@ -56,9 +53,7 @@ export default class PostController extends Controller {
     req: TypedRequest<DtoHelper<DeleteDto>>,
     res: TypedResponse<PostResponse.Delete>
   ): Promise<void> {
-    const user = req.user as User;
-
-    await this.postService.delete(req.body.uuid, user);
+    await this.postService.delete(req.body.uuid, req.user!);
     res.json({});
   }
 
@@ -66,9 +61,7 @@ export default class PostController extends Controller {
     req: TypedRequest<DtoHelper<EditDto>>,
     res: TypedResponse<PostResponse.Edit>
   ): Promise<void> {
-    const user = req.user as User;
-
-    await this.postService.edit(user, req.body.uuid, req.body.content);
+    await this.postService.edit(req.user!, req.body.uuid, req.body.content);
     res.json({});
   }
 }
