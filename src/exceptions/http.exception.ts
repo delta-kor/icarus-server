@@ -10,6 +10,7 @@ export enum ErrorCode {
   INVALID_POST_CONTENT,
   POST_NOT_FOUND,
   NO_PERMISSION_TO_DELETE_POST,
+  NO_PERMISSION_TO_EDIT_POST,
 }
 
 export default class HttpException extends Error {
