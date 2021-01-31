@@ -4,6 +4,8 @@ namespace PostResponse {
   }
 
   export interface Delete {}
+
+  export interface Edit {}
 }
 
 export default PostResponse;

@@ -6,6 +6,7 @@ import { TypedRequest, TypedResponse } from '../../utils/express.type';
 import ValidateHelper from '../../utils/validate-helper.util';
 import User from '../user/user.interface';
 import DeleteDto from './dto/delete.dto';
+import EditDto from './dto/edit.dto';
 import WriteDto from './dto/write.dto';
 import PostResponse from './post.response';
 import PostService from './post.service';
@@ -27,6 +28,12 @@ export default class PostController extends Controller {
       Authenticate,
       ValidateHelper(DeleteDto),
       AsyncHelper(this.delete.bind(this))
+    );
+    this.router.post(
+      '/edit',
+      Authenticate,
+      ValidateHelper(EditDto),
+      AsyncHelper(this.edit.bind(this))
     );
   }
 
@@ -52,6 +59,16 @@ export default class PostController extends Controller {
     const user = req.user as User;
 
     await this.postService.delete(req.body.uuid, user);
+    res.json({});
+  }
+
+  private async edit(
+    req: TypedRequest<DtoHelper<EditDto>>,
+    res: TypedResponse<PostResponse.Edit>
+  ): Promise<void> {
+    const user = req.user as User;
+
+    await this.postService.edit(user, req.body.uuid, req.body.content);
     res.json({});
   }
 }
