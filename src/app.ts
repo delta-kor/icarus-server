@@ -5,7 +5,6 @@ import mongoose from 'mongoose';
 import passport from 'passport';
 import HttpException from './exceptions/http.exception';
 import NotFoundException from './exceptions/not-found.exception';
-import User from './modules/user/user.interface';
 import UserModel from './modules/user/user.model';
 import Controller from './types/controller.class';
 
@@ -53,11 +52,11 @@ export default class App {
     this.app.use(passport.initialize());
     this.app.use(passport.session());
 
-    passport.serializeUser<User, string>((user, done) => {
+    passport.serializeUser((user, done) => {
       return done(null, user.uuid);
     });
 
-    passport.deserializeUser<User, string>(async (id, done) => {
+    passport.deserializeUser<string>(async (id, done) => {
       const user = await UserModel.getUserByUUID(id);
       return user ? done(null, user) : done(null);
     });
