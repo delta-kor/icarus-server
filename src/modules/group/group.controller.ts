@@ -4,7 +4,6 @@ import Authenticate from '../../utils/authenticate.util';
 import DtoHelper from '../../utils/dto-helper.util';
 import { TypedRequest, TypedResponse } from '../../utils/express.type';
 import ValidateHelper from '../../utils/validate-helper.util';
-import User from '../user/user.interface';
 import CreateDto from './dto/create.dto';
 import InfoDto from './dto/info.dto';
 import JoinDto from './dto/join.dto';
@@ -57,9 +56,7 @@ export default class GroupController extends Controller {
     req: TypedRequest<DtoHelper<CreateDto>>,
     res: TypedResponse<GroupResponse.Create>
   ): Promise<void> {
-    const user = req.user as User;
-
-    const group = await this.groupService.create(req.body.name, user);
+    const group = await this.groupService.create(req.body.name, req.user!);
     res.json({ uuid: group.uuid });
   }
 
@@ -67,9 +64,7 @@ export default class GroupController extends Controller {
     req: TypedRequest<DtoHelper<JoinDto>>,
     res: TypedResponse<GroupResponse.Join>
   ): Promise<void> {
-    const user = req.user as User;
-
-    await this.groupService.join(req.body.uuid, user);
+    await this.groupService.join(req.body.uuid, req.user!);
     res.json({});
   }
 
@@ -77,9 +72,7 @@ export default class GroupController extends Controller {
     req: TypedRequest<DtoHelper<LeaveDto>>,
     res: TypedResponse<GroupResponse.Leave>
   ): Promise<void> {
-    const user = req.user as User;
-
-    await this.groupService.leave(req.body.uuid, user);
+    await this.groupService.leave(req.body.uuid, req.user!);
     res.json({});
   }
 }
