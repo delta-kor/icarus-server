@@ -10,7 +10,7 @@
     "start": "yarn build && yarn deploy"
   },
   "dependencies": {
-    "class-transformer": "^0.3.1",
+    "class-transformer": "^0.3.2",
     "class-validator": "^0.12.2",
     "connect-mongo": "^3.2.0",
     "dotenv": "^8.2.0",
