@@ -184,13 +184,13 @@ class-validator@^0.13.1:
     libphonenumber-js "^1.9.7"
     validator "^13.5.2"
 
-connect-mongo@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/connect-mongo/-/connect-mongo-4.2.0.tgz#9c9e6c7bbd521f238b8506ea65985b77b6a8e589"
-  integrity sha512-2VDqVpzw4ZNExaKt/fRCR+oAxvZlNDg1FnPtxRVo8N8sIFQF2gyg1PgvfB3npIlpuHRcckx5p3KOxpSGKMn+GQ==
+connect-mongo@^4.2.2:
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/connect-mongo/-/connect-mongo-4.2.2.tgz#2fe82250b34c29c31cdf4f379b6ded2375bae8b8"
+  integrity sha512-HueEAPZoeGpzbfLTHBXSs6SwNZv275nz3Kxyak5aT+RlBz8/ljTw0wO1f3NwjWxkJdBd12mVb7/aYopS7tzq4A==
   dependencies:
     debug "^4.3.1"
-    kruptein "^2.2.3"
+    kruptein "^3.0.0"
     mongodb "3.6.3"
 
 content-disposition@0.5.3:
@@ -450,10 +450,10 @@ kareem@2.3.2:
   resolved "https://registry.yarnpkg.com/kareem/-/kareem-2.3.2.tgz#78c4508894985b8d38a0dc15e1a8e11078f2ca93"
   integrity sha512-STHz9P7X2L4Kwn72fA4rGyqyXdmrMSdxqHx9IXon/FXluXieaFA6KJ2upcHAHxQPQ0LeM/OjLrhFxifHewOALQ==
 
-kruptein@^2.2.3:
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/kruptein/-/kruptein-2.2.3.tgz#e09a3942b8072ac71728d10fe089293e0b5e7d42"
-  integrity sha512-BTwprBPTzkFT9oTugxKd3WnWrX630MqUDsnmBuoa98eQs12oD4n4TeI0GbpdGcYn/73Xueg2rfnw+oK4dovnJg==
+kruptein@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/kruptein/-/kruptein-3.0.0.tgz#9a7960248c9758f1e75522d2b87b8388bd40874f"
+  integrity sha512-Fh5sIb+3XI9L12GsgeBQqXVRPLB1HVViKSUkqPPOcqTEX4NwoF8Z3pEfMSl3Psd1j+QlloV8Uxxwp4gk3aFBGA==
   dependencies:
     asn1.js "^5.4.1"
 
