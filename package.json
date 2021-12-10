@@ -23,7 +23,7 @@
     "@types/express-session": "^1.17.4",
     "@types/node": "^16.11.12",
     "@types/passport": "^1.0.7",
-    "mongoose": "^6.0.12",
+    "mongoose": "^6.1.1",
     "prettier": "^2.5.1",
     "prettier-plugin-organize-imports": "^2.3.4",
     "tsc-watch": "^4.5.0",
