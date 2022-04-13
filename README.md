@@ -1,2 +1,2 @@
 # icarus-server
-ICARUS Server
+ICARUS API Server
