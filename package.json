@@ -21,7 +21,7 @@
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/express-session": "^1.18.0",
-    "@types/node": "^22.7.5",
+    "@types/node": "^22.8.6",
     "@types/passport": "^1.0.14",
     "mongoose": "^8.7.0",
     "prettier": "^3.3.3",
