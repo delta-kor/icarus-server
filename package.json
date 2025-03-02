@@ -24,7 +24,7 @@
     "@types/node": "^22.13.4",
     "@types/passport": "^1.0.17",
     "mongoose": "^8.10.1",
-    "prettier": "^3.5.1",
+    "prettier": "^3.5.2",
     "prettier-plugin-organize-imports": "^4.1.0",
     "tsc-watch": "^6.2.1",
     "typescript": "^5.7.3"
