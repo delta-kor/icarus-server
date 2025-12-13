@@ -195,13 +195,13 @@ class-validator@^0.14.3:
     libphonenumber-js "^1.11.1"
     validator "^13.15.20"
 
-connect-mongo@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/connect-mongo/-/connect-mongo-5.1.0.tgz#8eb66bf94c3e5af0442278a5f43bd15c365eac92"
-  integrity sha512-xT0vxQLqyqoUTxPLzlP9a/u+vir0zNkhiy9uAdHjSCcUUf7TS5b55Icw8lVyYFxfemP3Mf9gdwUOgeF3cxCAhw==
+connect-mongo@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/connect-mongo/-/connect-mongo-6.0.0.tgz#47f9bd744bd1c205f9dd86402e6938d2a61ed418"
+  integrity sha512-mHxfnTiWk7ZtxmHdcrFBKlr7fCtgGoFpx/oe9jFW0yb2NinagsxEeuol78nUWMpnWyYK0nnuXMlU9wrgUjTE6g==
   dependencies:
-    debug "^4.3.1"
-    kruptein "^3.0.0"
+    debug "^4.4.3"
+    kruptein "3.0.8"
 
 content-disposition@^1.0.0:
   version "1.0.0"
@@ -246,7 +246,7 @@ debug@2.6.9:
   dependencies:
     ms "2.0.0"
 
-debug@4.x, debug@^4.3.1, debug@^4.3.5, debug@^4.4.0, debug@^4.4.3:
+debug@4.x, debug@^4.3.5, debug@^4.4.0, debug@^4.4.3:
   version "4.4.3"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.4.3.tgz#c6ae432d9bd9662582fce08709b038c58e9e3d6a"
   integrity sha512-RGwwWnwQvkVfavKVt22FGLw+xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA==
@@ -491,10 +491,10 @@ kareem@2.6.3:
   resolved "https://registry.yarnpkg.com/kareem/-/kareem-2.6.3.tgz#23168ec8ffb6c1abfd31b7169a6fb1dd285992ac"
   integrity sha512-C3iHfuGUXK2u8/ipq9LfjFfXFxAZMQJJq7vLS45r3D9Y2xQ/m4S8zaR4zMLFWh9AsNPXmcFfUDhTEO8UIC/V6Q==
 
-kruptein@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/kruptein/-/kruptein-3.0.0.tgz#9a7960248c9758f1e75522d2b87b8388bd40874f"
-  integrity sha512-Fh5sIb+3XI9L12GsgeBQqXVRPLB1HVViKSUkqPPOcqTEX4NwoF8Z3pEfMSl3Psd1j+QlloV8Uxxwp4gk3aFBGA==
+kruptein@3.0.8:
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/kruptein/-/kruptein-3.0.8.tgz#e5f392809bfcd36d381ec069ac5c3d155b6e0a09"
+  integrity sha512-0CyalFA0Cjp3jnziMp0u1uLZW2/ouhQ0mEMfYlroBXNe86na1RwAuwBcdRAegeWZNMfQy/G5fN47g/Axjtqrfw==
   dependencies:
     asn1.js "^5.4.1"
 
