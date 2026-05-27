@@ -1,2 +1,2 @@
 # icarus-server
-Icarus Api Repository
+Icarus Api Server Repository
